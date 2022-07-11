@@ -1,2 +1,2 @@
 # YADCL
-Yet Another Date C++ Library
+Yet Another Date C(++) Library
