@@ -1,4 +1,5 @@
 #include <cmath>
+#include <ctime>
 //#include <cstdio>
 
 /**
@@ -18,7 +19,7 @@ namespace YADCL
         long long year = 0;
 
         ///Returns count in days from zero date.
-        long long toDays()
+        long long toDays() const
         {
             if((day <= 31 and day != 0) and (month <= 12 and month != 0))
             {
@@ -117,6 +118,26 @@ namespace YADCL
             month = checkedDate.month;
             year = checkedDate.year;
             return *this;
+        }
+
+        /**
+         * @brief Distance between itself and date.
+         * 
+         * @param checkedDate Date to compare to.
+         * @return unsigned long long Distance between two dates.
+         */
+        unsigned long long distance(const date& checkedDate) const
+        {
+            long long date1 = toDays();
+            long long date2 = checkedDate.toDays();
+            if(date1 >= date2)
+            {
+                return std::abs(date1 - date2);
+            }
+            else
+            {
+                return std::abs(date2 - date1);
+            }
         }
 
         date() = default;
@@ -233,4 +254,14 @@ namespace YADCL
         }
         #endif
     };
+
+    #ifdef _TIME_H
+    inline date currentDate()
+    {
+        time_t theCurrent = time(NULL);
+        auto theDate = *localtime(&theCurrent);
+        date newDate{(unsigned short)theDate.tm_mday, static_cast<unsigned short>((unsigned short)theDate.tm_mon + 1), theDate.tm_year + 1900};
+        return newDate;
+    }
+    #endif
 }
