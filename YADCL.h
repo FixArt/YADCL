@@ -209,6 +209,57 @@ namespace YADCL
             {
                 return;
             }
+            #ifdef _TIME_H
+            else if(sscanf(checkedString, "%02hu.%02hu", &day, &month) == 2 and (day <= 31 and day != 0) and (month <= 12 and month != 0))
+            {
+                time_t theCurrent = time(NULL);
+                auto theDate = *localtime(&theCurrent);
+                year = theDate.tm_year + 1900;
+                return;
+            }
+            else if(sscanf(checkedString, "%02hu/%02hu", &day, &month) == 2 and (day <= 31 and day != 0) and (month <= 12 and month != 0))
+            {
+                time_t theCurrent = time(NULL);
+                auto theDate = *localtime(&theCurrent);
+                year = theDate.tm_year + 1900;
+                return;
+            }
+            else if(sscanf(checkedString, "%02hu-%02hu", &day, &month) == 2 and (day <= 31 and day != 0) and (month <= 12 and month != 0))
+            {
+                time_t theCurrent = time(NULL);
+                auto theDate = *localtime(&theCurrent);
+                year = theDate.tm_year + 1900;
+                return;
+            }
+            else if(sscanf(checkedString, "%2hu.%2hu", &day, &month) == 2 and (day <= 31 and day != 0) and (month <= 12 and month != 0))
+            {
+                time_t theCurrent = time(NULL);
+                auto theDate = *localtime(&theCurrent);
+                year = theDate.tm_year + 1900;
+                return;
+            }
+            else if(sscanf(checkedString, "%2hu/%2hu", &day, &month) == 2 and (day <= 31 and day != 0) and (month <= 12 and month != 0))
+            {
+                time_t theCurrent = time(NULL);
+                auto theDate = *localtime(&theCurrent);
+                year = theDate.tm_year + 1900;
+                return;
+            }
+            else if(sscanf(checkedString, "%2hu-%2hu", &day, &month) == 2 and (day <= 31 and day != 0) and (month <= 12 and month != 0))
+            {
+                time_t theCurrent = time(NULL);
+                auto theDate = *localtime(&theCurrent);
+                year = theDate.tm_year + 1900;
+                return;
+            }
+            else if(sscanf(checkedString, "%02hu%02hu", &day, &month) == 2 and (day <= 31 and day != 0) and (month <= 12 and month != 0))
+            {
+                time_t theCurrent = time(NULL);
+                auto theDate = *localtime(&theCurrent);
+                year = theDate.tm_year + 1900;
+                return;
+            }
+            #endif
             else
             {
                 day = 0;
@@ -263,6 +314,57 @@ namespace YADCL
             {
                 return *this;
             }
+            #ifdef _TIME_H
+            else if(sscanf(checkedString, "%02hu.%02hu", &day, &month) == 2 and (day <= 31 and day != 0) and (month <= 12 and month != 0))
+            {
+                time_t theCurrent = time(NULL);
+                auto theDate = *localtime(&theCurrent);
+                year = theDate.tm_year + 1900;
+                return *this;
+            }
+            else if(sscanf(checkedString, "%02hu/%02hu", &day, &month) == 2 and (day <= 31 and day != 0) and (month <= 12 and month != 0))
+            {
+                time_t theCurrent = time(NULL);
+                auto theDate = *localtime(&theCurrent);
+                year = theDate.tm_year + 1900;
+                return *this;
+            }
+            else if(sscanf(checkedString, "%02hu-%02hu", &day, &month) == 2 and (day <= 31 and day != 0) and (month <= 12 and month != 0))
+            {
+                time_t theCurrent = time(NULL);
+                auto theDate = *localtime(&theCurrent);
+                year = theDate.tm_year + 1900;
+                return *this;
+            }
+            else if(sscanf(checkedString, "%2hu.%2hu", &day, &month) == 2 and (day <= 31 and day != 0) and (month <= 12 and month != 0))
+            {
+                time_t theCurrent = time(NULL);
+                auto theDate = *localtime(&theCurrent);
+                year = theDate.tm_year + 1900;
+                return *this;
+            }
+            else if(sscanf(checkedString, "%2hu/%2hu", &day, &month) == 2 and (day <= 31 and day != 0) and (month <= 12 and month != 0))
+            {
+                time_t theCurrent = time(NULL);
+                auto theDate = *localtime(&theCurrent);
+                year = theDate.tm_year + 1900;
+                return *this;
+            }
+            else if(sscanf(checkedString, "%2hu-%2hu", &day, &month) == 2 and (day <= 31 and day != 0) and (month <= 12 and month != 0))
+            {
+                time_t theCurrent = time(NULL);
+                auto theDate = *localtime(&theCurrent);
+                year = theDate.tm_year + 1900;
+                return *this;
+            }
+            else if(sscanf(checkedString, "%02hu%02hu", &day, &month) == 2 and (day <= 31 and day != 0) and (month <= 12 and month != 0))
+            {
+                time_t theCurrent = time(NULL);
+                auto theDate = *localtime(&theCurrent);
+                year = theDate.tm_year + 1900;
+                return *this;
+            }
+            #endif
             else
             {
                 day = 0;
