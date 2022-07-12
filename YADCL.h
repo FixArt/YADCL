@@ -112,6 +112,13 @@ namespace YADCL
             else return false; //I knew the else if was a lie.
         }
 
+        date(const date& checkedDate)
+        {
+            day = checkedDate.day;
+            month = checkedDate.month;
+            year = checkedDate.year;
+        }
+
         date& operator=(const date& checkedDate)
         {
             day = checkedDate.day;
@@ -163,7 +170,7 @@ namespace YADCL
         ~date() = default;
 
         #ifdef _STDIO_H
-        explicit date(const char* checkedString)
+        date(const char* checkedString)
         {
             if(sscanf(checkedString, "%02hu.%02hu.%lld", &day, &month, &year) == 3 and (day <= 31 and day != 0) and (month <= 12 and month != 0))
             {
