@@ -1,5 +1,5 @@
 #include <cmath>
-#include <ctime>
+//#include <ctime>
 //#include <cstdio>
 
 /**
@@ -141,6 +141,25 @@ namespace YADCL
         }
 
         date() = default;
+
+        date(const unsigned short &days, const unsigned short &months, const long long &years)
+        {
+            day = days;
+            month = months;
+            year = years;
+        }
+
+        #ifdef _TIME_H
+        date(const unsigned short &days, const unsigned short &months)
+        {
+            day = days;
+            month = months;
+            time_t theCurrent = time(NULL);
+            auto theDate = *localtime(&theCurrent);
+            year = theDate.tm_year + 1900;
+        }
+        #endif
+        
         ~date() = default;
 
         #ifdef _STDIO_H
