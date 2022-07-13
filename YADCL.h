@@ -23,8 +23,8 @@ namespace YADCL
         {
             if((day <= 31 and day != 0) and (month <= 12 and month != 0))
             {
-                long long yearsToDay = std::abs(year) * 365 + std::abs(year) / 4;
-                unsigned long long monthsToDay = month*(double(365)/12);
+                long long yearsToDay = std::abs(year) * 365 + std::abs(year) * 0.2425;
+                unsigned long long monthsToDay = month * (double(365) / 12);
                 long long allDays = yearsToDay + day + monthsToDay;
                 return allDays;
             }
@@ -124,6 +124,52 @@ namespace YADCL
             day = checkedDate.day;
             month = checkedDate.month;
             year = checkedDate.year;
+            return *this;
+        }
+
+        ///Very unacurrate currently.
+        date& operator=(const unsigned long long& daysNumber)
+        {
+            year = 0;
+            month = 0;
+            day = 0;
+            unsigned long long countedNumber = daysNumber;
+            while(countedNumber >= 365.2425)
+            {
+                year += 1;
+                countedNumber -= 365.2425;
+            }
+            while(countedNumber >= 365 / 12)
+            {
+                month += 1;
+                countedNumber -= 365 / 12;
+            }
+            day += countedNumber;
+            return *this;
+        }
+
+        ///Very unacurrate currently.
+        date& operator=(const long long& daysNumber)
+        {
+            year = 0;
+            month = 0;
+            day = 0;
+            unsigned long long countedNumber = std::abs(daysNumber);
+            while(countedNumber >= 365.2425)
+            {
+                year += 1;
+                countedNumber -= 365.2425;
+            }
+            while(countedNumber >= 365 / 12)
+            {
+                month += 1;
+                countedNumber -= 365 / 12;
+            }
+            day += countedNumber;
+            if(daysNumber < 0)
+            {
+                year = -year;
+            }
             return *this;
         }
 
