@@ -80,15 +80,15 @@ namespace YADCL
 
         bool operator>=(const date& compared) const
         {
-            if(year >= compared.year)
+            if(year > compared.year)
             {
                 return true;
             }
-            else if(month >= compared.month)
+            else if(month > compared.month and year == compared.year)
             {
                 return true;
             }
-            else if(day >= compared.day)
+            else if(day >= compared.day and month == compared.month and year == compared.year)
             {
                 return true;
             }
@@ -97,15 +97,15 @@ namespace YADCL
 
         bool operator<=(const date& compared) const
         {
-            if(year <= compared.year)
+            if(year < compared.year)
             {
                 return true;
             }
-            else if(month <= compared.month)
+            else if(month < compared.month and year == compared.year)
             {
                 return true;
             }
-            else if(day <= compared.day)
+            else if(day <= compared.day and month == compared.month and year == compared.year)
             {
                 return true;
             }
