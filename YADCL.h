@@ -1,6 +1,6 @@
 #include <cmath>
-//#include <ctime>
-//#include <cstdio>
+#include <ctime>
+#include <cstdio>
 
 /**
  * @brief Yet another dates C++ library. Simply work with days, nothing more. Include cstdio for more functions.
@@ -14,6 +14,21 @@ namespace YADCL
      */
     struct date
     {
+        private:
+        //Gets number size.
+        unsigned long long numberSize(const long long number)
+        {
+            unsigned long long count = 0;
+            //use function std::abs instead. absolute value function 'abs' given an argument of type 'const long long' but has parameter of type 'int' which may cause truncation of value [Semantic Issue] (Сказав мені компілятор Clang)
+            long long checkedNumber = std::abs(number);
+            while(checkedNumber != 0)
+            {
+                checkedNumber = checkedNumber/10;
+                ++count;
+            }
+            return count;
+        }
+        public:
         unsigned short day = 0;
         unsigned short month = 0;
         long long year = 0;
@@ -23,15 +38,31 @@ namespace YADCL
         {
             if((day <= 31 and day != 0) and (month <= 12 and month != 0))
             {
-                long long yearsToDay = std::abs(year) * 365 + std::abs(year) * 0.2425;
+                long long yearsToDay = year * 365 + year * 0.2425;
                 unsigned long long monthsToDay = month * (double(365) / 12);
-                long long allDays = yearsToDay + day + monthsToDay;
+                long long allDays = 0;
+                if(yearsToDay >= 0) allDays = yearsToDay + day + monthsToDay;
+                else allDays = yearsToDay - day - monthsToDay;
                 return allDays;
             }
             else
             {
                 return 0;
             }
+        }
+
+        ///Test if works.
+        operator long long() const
+        {
+            return toDays();
+        }
+
+        operator char*()
+        {
+            char* createdString = new char[7 + numberSize(year)]{' '};
+            createdString[6 + numberSize(year)] = '\0';
+            sprintf(createdString, "%02hu.%02hu.%lld", day, month, year);
+            return createdString;
         }
 
         bool operator==(const date& compared) const
@@ -215,7 +246,6 @@ namespace YADCL
         
         ~date() = default;
 
-        #ifdef _STDIO_H
         date(const char* checkedString)
         {
             if(sscanf(checkedString, "%02hu.%02hu.%lld", &day, &month, &year) == 3 and (day <= 31 and day != 0) and (month <= 12 and month != 0))
@@ -262,7 +292,6 @@ namespace YADCL
             {
                 return;
             }
-            #ifdef _TIME_H
             else if(sscanf(checkedString, "%02hu.%02hu", &day, &month) == 2 and (day <= 31 and day != 0) and (month <= 12 and month != 0))
             {
                 time_t theCurrent = time(NULL);
@@ -312,7 +341,6 @@ namespace YADCL
                 year = theDate.tm_year + 1900;
                 return;
             }
-            #endif
             else
             {
                 day = 0;
@@ -367,7 +395,6 @@ namespace YADCL
             {
                 return *this;
             }
-            #ifdef _TIME_H
             else if(sscanf(checkedString, "%02hu.%02hu", &day, &month) == 2 and (day <= 31 and day != 0) and (month <= 12 and month != 0))
             {
                 time_t theCurrent = time(NULL);
@@ -417,7 +444,6 @@ namespace YADCL
                 year = theDate.tm_year + 1900;
                 return *this;
             }
-            #endif
             else
             {
                 day = 0;
@@ -426,10 +452,8 @@ namespace YADCL
             }
             return *this;
         }
-        #endif
     };
 
-    #ifdef _TIME_H
     inline date currentDate()
     {
         time_t theCurrent = time(NULL);
@@ -437,5 +461,4 @@ namespace YADCL
         date newDate{(unsigned short)theDate.tm_mday, static_cast<unsigned short>((unsigned short)theDate.tm_mon + 1), theDate.tm_year + 1900};
         return newDate;
     }
-    #endif
 }
